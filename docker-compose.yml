@@ -1,0 +1,11 @@
+services:
+  packet-base:
+    build: .
+    ports:
+      - '3000:3000'
+    networks:
+      - es-net
+networks:
+  es-net:
+    name: es-net
+    external: true
