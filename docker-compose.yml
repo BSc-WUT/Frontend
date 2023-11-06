@@ -2,7 +2,7 @@ services:
   packet-base:
     build: .
     ports:
-      - '3000:3000'
+      - "3000:3000"
     networks:
       - es-net
 networks:

@@ -4,11 +4,9 @@
 node_modules
 /.pnp
 .pnp.js
-*package.json
 *package-lock.json
-
-# testing
-src/coverage
+*yarn.lock
+*yarn-error.log
 
 # next.js
 .next/
@@ -17,28 +15,21 @@ src/coverage
 # production
 src/build
 
-# misc
-src/.DS_Store
-src/*.pem
-
 # debug
-src/npm-debug.log*
-src/yarn-debug.log*
-src/yarn-error.log*
-src/.pnpm-debug.log*
+packet-base/npm-debug.log*
+packet-base/yarn-debug.log*
+packet-base/yarn-error.log*
+packet-base/.pnpm-debug.log*
 
-# local env files
-src/.env*.local
 
 # vercel
-src/.vercel
+packet-base/.vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
-# swc
-.swc/
-
 # env
 .env
+
+.vscode
