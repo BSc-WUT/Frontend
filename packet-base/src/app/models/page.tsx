@@ -1,5 +1,10 @@
 import React from "react";
+import ModelsLayout from "./components/ModelsLayout/ModelsLayout";
 
 export default function Models() {
-  return <div>Models</div>;
+  return (
+    <ModelsLayout>
+      <div>test</div>
+    </ModelsLayout>
+  );
 }

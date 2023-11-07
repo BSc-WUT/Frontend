@@ -27,3 +27,9 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+h1 {
+  font-size: large;
+  font-weight: 600;
+  color: whitesmoke;
+}

@@ -14,12 +14,10 @@ import AIIcon from "../../../public/microchip-ai.svg";
 const VerticalMenu: React.FC = () => {
   const pathname = usePathname();
   const activeClassName = (path: string) => {
-    return pathname == path
-      ? "text-white bg-blue-700/50"
-      : "text-white/50 bg-black";
+    return pathname == path ? "text-blue-700" : "text-white bg-black";
   };
   return (
-    <div className="flex-col mx-4 pt-8 space-y-10 h-full bg-black content-center border-r-4 border-blue-700/50">
+    <div className="flex-col mr-4 pt-8 pl-4 space-y-10 h-full bg-black content-center ring-2 ring-blue-700/50">
       <Link href="/">
         <Image
           src={PacketBaseLogo}
