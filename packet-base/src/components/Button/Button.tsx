@@ -4,7 +4,7 @@ interface ButtonProps {
   title: string;
   isClicked?: boolean;
   onClick?: React.MouseEventHandler;
-  type: "button" | "reset" | "submit" | "undefined";
+  type: "button" | "reset" | "submit" | undefined;
   hoverStyle: "hover_blue" | "hover_white";
 }
 
