@@ -1,11 +1,12 @@
 "use client";
 
 import Table from "@/components/Table/Table";
-import { ModelType } from "../Model/Model";
+import { ModelType } from "../../../../components/Model/Model";
 import Button from "@/components/Button/Button";
 import ToggleCheckButton from "../ToggleCheckButton/ToggleCheckButton";
 import { Cell, Column } from "react-table";
 import React, { useState } from "react";
+import Link from "next/link";
 
 interface ModelsListProps {
   models: ModelType[];
@@ -27,6 +28,11 @@ const ModelsList: React.FC<ModelsListProps> = ({ models }) => {
     );
   };
 
+  const renderModelLink = (cell: Cell) => {
+    const model: any = cell.row.original;
+    return <Link href={`/models/${model.name}`}>{model.name}</Link>;
+  };
+
   const saveActiveModel = (activeModelName: string) => {
     const activeModel = models.filter((model) => model.name == activeModelName);
     console.log(activeModel);
@@ -41,6 +47,7 @@ const ModelsList: React.FC<ModelsListProps> = ({ models }) => {
     {
       Header: "Name",
       accessor: "name",
+      Cell: renderModelLink,
     },
     {
       Header: "Total Params",

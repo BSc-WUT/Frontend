@@ -7,9 +7,9 @@ interface PageLayoutProps {
 
 const PageLayout: React.FC<PageLayoutProps> = ({ children, title }) => {
   return (
-    <div className="flex flex-col p-10 pt-24 h-full space-y-12">
+    <div className="flex flex-col p-10 pt-24 space-y-12">
       <h1 className="text-4xl">{title}</h1>
-      <div>{children}</div>
+      <div className="">{children}</div>
     </div>
   );
 };

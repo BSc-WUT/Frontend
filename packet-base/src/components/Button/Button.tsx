@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ButtonProps {
-  title: string;
+  title?: string;
   isClicked?: boolean;
   onClick?: React.MouseEventHandler;
   type: "button" | "reset" | "submit" | undefined;

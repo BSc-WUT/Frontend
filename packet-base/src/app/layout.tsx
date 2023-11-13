@@ -14,7 +14,7 @@ export default function RootLayout({
       <body className={`${inter.className} h-full`}>
         <div className="flex h-full">
           <VerticalMenu />
-          <div className="flex-1 w-64">{children}</div>
+          <div className="relative overflow-auto flex-1 w-64">{children}</div>
         </div>
       </body>
     </html>
