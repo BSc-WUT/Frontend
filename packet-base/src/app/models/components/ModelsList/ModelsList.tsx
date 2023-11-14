@@ -30,7 +30,14 @@ const ModelsList: React.FC<ModelsListProps> = ({ models }) => {
 
   const renderModelLink = (cell: Cell) => {
     const model: any = cell.row.original;
-    return <Link href={`/models/${model.name}`}>{model.name}</Link>;
+    return (
+      <Link
+        href={`/models/${model.name}`}
+        className="underline hover:text-blue-700"
+      >
+        {model.name}
+      </Link>
+    );
   };
 
   const saveActiveModel = (activeModelName: string) => {

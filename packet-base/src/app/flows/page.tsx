@@ -55,7 +55,14 @@ export default function Flows() {
 
   const renderFlowLink = (cell: Cell) => {
     const flow: any = cell.row.original;
-    return <Link href={`/flows/${flow.flowId}`}>{flow.flowId}</Link>;
+    return (
+      <Link
+        href={`/flows/${flow.flowId}`}
+        className="w-full underline hover:text-blue-700"
+      >
+        {flow.flowId}
+      </Link>
+    );
   };
 
   const flowsColumns: Column[] = [
