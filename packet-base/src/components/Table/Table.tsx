@@ -11,7 +11,7 @@ const Table: React.FC<TableProps> = ({ data, columns }) => {
     useTable({ columns, data });
 
   return (
-    <div className="rounded-xl overflow-hidden">
+    <div className="rounded-xl overflow-auto">
       <table
         className="min-w-full rounded border-separate"
         {...getTableProps()}
@@ -41,7 +41,7 @@ const Table: React.FC<TableProps> = ({ data, columns }) => {
                     {...cell.getCellProps()}
                     className="py-4 px-6 whitespace-nowrap"
                   >
-                    {cell.render("Cell", { a: "test" })}
+                    {cell.render("Cell")}
                   </td>
                 ))}
               </tr>

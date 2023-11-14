@@ -53,18 +53,18 @@ const Model: React.FC<ModelType> = ({
           <button>Get back</button>
         </div>
       </Link>
-      <div className="flex-col w-fit space-y-14 relative overflow-auto">
+      <div className="flex-col w-fit space-y-14 ">
         <div className="flex-col space-y-6">
           <h1 className="text-2xl">Model Structure</h1>
           <div>{layersComp}</div>
         </div>
         <div className="flex-col space-y-4">
           <h1 className="text-2xl">Model Params</h1>
-          <div className="grid grid-rows-3 grid-flow-col gap-4">
+          <div className="grid grid-rows-2 grid-flow-col gap-4">
             <NumberDisplay
               number={totalParams}
               title="Total Params"
-              className="row-span-3"
+              className="row-span-2"
             />
             <NumberDisplay
               number={trainableParams}
@@ -74,7 +74,7 @@ const Model: React.FC<ModelType> = ({
             <NumberDisplay
               number={nonTrainableParams}
               title="Non Trainable Params"
-              className="col-span-2 row-span-2"
+              className="col-span-2 row-span-1"
             />
           </div>
         </div>
