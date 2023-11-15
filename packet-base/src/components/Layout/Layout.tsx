@@ -1,7 +1,6 @@
 "use client";
 import { useAuth } from "@/hooks/useAuth";
 import VerticalMenu from "../VerticalMenu/VertircalMenu";
-import LoginForm from "../LoginForm/LoginForm";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useCookie from "@/hooks/useCookie";
@@ -16,13 +15,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { getCookie } = useCookie();
 
   useEffect(() => {
+    router.prefetch("/login");
     const isAuth = getCookie("auth");
     if (!auth && !isAuth) {
       router.push("/login");
     }
   }, [auth]);
-
-  console.log(`Layout component ${auth}`);
 
   return (
     <div className="flex h-full">

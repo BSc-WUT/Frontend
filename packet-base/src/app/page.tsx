@@ -1,4 +1,5 @@
 import Button from "@/components/Button/Button";
+import Loading from "@/components/Loading/Loading";
 import PageLayout from "@/components/PageLayout/PageLayout";
 import Link from "next/link";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Button from "../Button/Button";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
@@ -8,7 +8,10 @@ import { useAuth } from "@/hooks/useAuth";
 interface LoginFormProps {}
 
 const LoginForm: React.FC<LoginFormProps> = ({}) => {
-  const { authorize, auth } = useAuth();
+  const [inputClassName, setInputClassName] = useState<string>(
+    "bg-gray-700 text-white"
+  );
+  const { authorize } = useAuth();
   const router = useRouter();
   const usernameInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
@@ -21,12 +24,15 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
     ) {
       authorize();
       router.push("/");
+    } else {
+      setInputClassName(
+        "bg-red-200 text-red border border-red focus:bg-gray-700"
+      );
     }
   };
 
-  const inputClassName =
-    "bg-gray-700 text-white rounded-lg px-4 py-2 focus:outline-0 focus:border-2 focus:border-blue-700 content-center";
-
+  const defaultInputClassName = `${inputClassName} border outline-0 text-white rounded-lg px-4 py-2 focus:outline-0 focus:border-2 focus:border-blue-700 content-center `;
+  console.log(inputClassName);
   return (
     <form className="flex flex-col justify-center space-y-4 h-full w-full px-60">
       <div className="flex flex-col space-y-4 h-max ">
@@ -34,14 +40,14 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
           id="username-input"
           type="text"
           ref={usernameInputRef}
-          className={inputClassName}
+          className={defaultInputClassName}
           placeholder="Username..."
         />
         <input
           id="password-input"
           type="password"
           ref={passwordInputRef}
-          className={inputClassName}
+          className={defaultInputClassName}
           placeholder="Password..."
         />
       </div>

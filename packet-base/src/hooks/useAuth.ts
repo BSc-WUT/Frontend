@@ -9,7 +9,6 @@ export const useAuth = () => {
   const authorize = () => {
     if (setAuth) {
       setAuth(true);
-      console.log("inside authorize function in useAuth hook");
       setCookie("auth", JSON.stringify(true));
     }
   };

@@ -23,15 +23,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (!auth) {
-      console.log(`AuthProvider - isAuth value: ${isAuth}`);
       if (!!isAuth) {
         setAuth(true);
       }
     }
   }, [isAuth]);
-  console.log(
-    `outside useEffect From AuthProvider (auth was not found in cookies) ${auth}`
-  );
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
