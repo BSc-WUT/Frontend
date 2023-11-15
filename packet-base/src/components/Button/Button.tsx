@@ -3,7 +3,7 @@ import React from "react";
 interface ButtonProps {
   title?: string;
   isClicked?: boolean;
-  onClick?: React.MouseEventHandler;
+  onClick?: React.MouseEventHandler | React.FormEventHandler;
   type: "button" | "reset" | "submit" | undefined;
   hoverStyle: "hover_blue" | "hover_white";
 }

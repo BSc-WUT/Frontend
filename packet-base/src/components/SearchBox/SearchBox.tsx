@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import SearchIcon from "../../../public/search.svg";
-import ReactDatePicker from "react-datepicker";
 
 interface SearchBoxProps {
   onChange?: React.ReactEventHandler<HTMLInputElement>;
@@ -25,7 +24,6 @@ const SearchBox: React.FC<SearchBoxProps> = ({
 }) => {
   const inputClassName = "bg-gray-700 text-white rounded px-4 py-2";
 
-  console.log(startDate);
   return (
     <div className="flex-col space-y-4">
       <div className="flex space-x-4 w-min">

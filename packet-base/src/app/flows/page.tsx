@@ -45,13 +45,10 @@ export default function Flows() {
   if (endDate) {
     conditions.push((flow: FlowType) => flow.timestamp < endDate);
   }
-  console.log(conditions);
 
   const filteredFlows = flows.filter((flow) => {
     return conditions.every((condition) => condition(flow));
   });
-
-  console.log(filteredFlows);
 
   const renderFlowLink = (cell: Cell) => {
     const flow: any = cell.row.original;

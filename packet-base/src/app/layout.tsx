@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import VerticalMenu from "@/components/VerticalMenu/VertircalMenu";
+import Providers from "@/providers/providers";
+import Layout from "@/components/Layout/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,10 +13,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${inter.className} h-full`}>
-        <div className="flex h-full">
-          <VerticalMenu />
-          <div className="relative overflow-auto flex-1 w-64">{children}</div>
-        </div>
+        <Providers>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   );
