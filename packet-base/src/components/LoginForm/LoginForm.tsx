@@ -32,7 +32,6 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
   };
 
   const defaultInputClassName = `${inputClassName} border outline-0 text-white rounded-lg px-4 py-2 focus:outline-0 focus:border-2 focus:border-blue-700 content-center `;
-  console.log(inputClassName);
   return (
     <form className="flex flex-col justify-center space-y-4 h-full w-full px-60">
       <div className="flex flex-col space-y-4 h-max ">

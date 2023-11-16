@@ -1,32 +1,57 @@
 "use client";
 
 import Button from "@/components/Button/Button";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import UploadStats from "../UploadStatus/UploadStatus";
+import useModels from "@/hooks/useModels";
 
 interface CreateModelFormProps {}
 
 const CreateModelForm: React.FC<CreateModelFormProps> = ({}) => {
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [uploadClick, setUploadClick] = useState<boolean>(false);
   const [uploadStatus, setUploadStatus] = useState<
     "start" | "processing" | "success" | "error"
   >("start");
+  const { uploadModel, loading, error } = useModels();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      setUploadStatus("error");
       setFile(event.target.files[0]);
     }
   };
 
   const hanldeButtonClick = () => {
     hiddenFileInput.current!.click();
+    setUploadClick(true);
   };
 
   const handleUpload = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {};
+  ) => {
+    event.preventDefault();
+    if (file) {
+      setUploadStatus("start");
+      uploadModel(file);
+      setUploadClick(false);
+      if (!error) {
+        setUploadStatus("success");
+      } else {
+        setUploadStatus("error");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (uploadClick) {
+      if (loading) {
+        setUploadStatus("processing");
+      } else if (!!error) {
+        setUploadStatus("error");
+      }
+    }
+  }, [uploadClick, loading, error]);
 
   return (
     <form className="flex-col space-y-8">

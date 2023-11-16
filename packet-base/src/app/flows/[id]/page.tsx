@@ -1,8 +1,9 @@
 "use client";
+import Error from "@/components/Error/Error";
 import Flow from "@/components/Flow/Flow";
 import { FlowType } from "@/components/Flow/FlowType";
+import Loading from "@/components/Loading/Loading";
 import PageLayout from "@/components/PageLayout/PageLayout";
-import { dummy_flows } from "@/dummy";
 import { convertKeysToCamelCase } from "@/hooks/camelizeKeys";
 import useFlows from "@/hooks/useFlows";
 import { GetStaticPaths } from "next";
@@ -10,7 +11,8 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const flows = dummy_flows;
+  const { flowsData } = useFlows();
+  const flows: FlowType[] = convertKeysToCamelCase(flowsData);
   const paths = flows.map((flow) => ({ params: { id: flow.flowId } }));
   return {
     paths,
@@ -44,16 +46,12 @@ export default function FlowPage() {
     }
   }, [currentFlowId, flows, currentFlow, router]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {<>{error}</>}</p>;
-  }
-
   return (
     <PageLayout title={`Flow: ${currentFlowId}`}>
+      {loading && <Loading />}
+      {!!error && (
+        <Error message={typeof error === "string" ? error : "Error occured"} />
+      )}
       {currentFlow && <Flow {...currentFlow} />}
     </PageLayout>
   );

@@ -5,7 +5,7 @@ interface ButtonProps {
   isClicked?: boolean;
   onClick?: React.MouseEventHandler | React.FormEventHandler;
   type: "button" | "reset" | "submit" | undefined;
-  hoverStyle: "hover_blue" | "hover_white";
+  hoverStyle: "hover_blue" | "hover_white" | "hover_red";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -21,6 +21,8 @@ const Button: React.FC<ButtonProps> = ({
       "hover:bg-blue-700/50 hover:text-white hover:outline-blue-700/50 outline outline-blue-700/50",
     hover_white:
       "bg-white text-black hover:bg-white/50 hover:text-white hover:outline-blue-700/50",
+    hover_red:
+      "bg-red-200 text-red-700 hover:bg-red-700 hover:text-red-200 outline-red-700",
   };
   const hoverClassName: string = hoverStyles[hoverStyle];
   return (

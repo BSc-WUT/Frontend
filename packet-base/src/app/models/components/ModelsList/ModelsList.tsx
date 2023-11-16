@@ -42,7 +42,6 @@ const ModelsList: React.FC<ModelsListProps> = ({ models }) => {
 
   const saveActiveModel = (activeModelName: string) => {
     const activeModel = models.filter((model) => model.name == activeModelName);
-    console.log(activeModel);
   };
 
   const modelsColumns: Column[] = [

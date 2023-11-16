@@ -2,6 +2,10 @@ import CloseIcon from "../../../public/close.svg";
 import Link from "next/link";
 import Button from "../Button/Button";
 import NumberDisplay from "../NumberDisplay/NumberDisplay";
+import useModels from "@/hooks/useModels";
+import Error from "../Error/Error";
+import Loading from "../Loading/Loading";
+import { useRouter } from "next/navigation";
 
 interface Layer {
   layerName: string;
@@ -38,6 +42,8 @@ const Model: React.FC<ModelType> = ({
   estmiatedTotalSizeMB,
   isActive,
 }) => {
+  const { deleteModel, loading, error } = useModels();
+  const router = useRouter();
   const layersComp = layers.map((layer) => {
     return <p>{layer.layerName}</p>;
   });
@@ -45,6 +51,14 @@ const Model: React.FC<ModelType> = ({
   const setModelAsActive = () => {
     console.log(name);
   };
+
+  const handleDelete = () => {
+    deleteModel(name);
+    setTimeout(() => {
+      router.push("/models");
+    }, 300);
+  };
+
   return (
     <div className="flex-col space-y-12">
       <Link href="/models">
@@ -94,19 +108,29 @@ const Model: React.FC<ModelType> = ({
           </div>
         </div>
       </div>
-      {!isActive && (
+      <div className="flex space-x-4">
+        {!isActive && (
+          <Button
+            title="Set as active model"
+            type="button"
+            hoverStyle="hover_white"
+            onClick={() => setModelAsActive()}
+          />
+        )}
+        {isActive && (
+          <div className="w-fit rounded-lg border-2 border-green-700 text-green-700 bg-green-100 hover:bg-white transition-all px-4 py-2">
+            Model is set as active
+          </div>
+        )}
         <Button
-          title="Set as active model"
+          title="Delete Model"
+          hoverStyle="hover_red"
+          onClick={() => handleDelete()}
           type="button"
-          hoverStyle="hover_white"
-          onClick={() => setModelAsActive()}
         />
-      )}
-      {isActive && (
-        <div className="w-fit rounded-lg border-2 border-green-700 text-green-700 bg-green-100 hover:bg-white transition-all px-4 py-2">
-          Model is set as active
-        </div>
-      )}
+      </div>
+      {error && <Error message={error} />}
+      {loading && <Loading />}
     </div>
   );
 };
