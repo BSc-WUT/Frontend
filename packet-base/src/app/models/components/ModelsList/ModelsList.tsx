@@ -1,26 +1,31 @@
 "use client";
-
 import Table from "@/components/Table/Table";
 import { ModelType } from "../../../../components/Model/Model";
 import Button from "@/components/Button/Button";
 import ToggleCheckButton from "../ToggleCheckButton/ToggleCheckButton";
 import { Cell, Column } from "react-table";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import useModels from "@/hooks/useModels";
 
 interface ModelsListProps {
   models: ModelType[];
 }
 
 const ModelsList: React.FC<ModelsListProps> = ({ models }) => {
-  const [activeModel, setActiveModel] = useState<string>(
-    models.filter((model) => model.isActive).map((model) => model.name)[0]
-  );
+  const { changeModelActivation } = useModels();
+  const activeModel = models.filter((model) => model.isActive).at(0);
+  const [activeModelName, setActiveModel] = useState<string>("");
+
+  useEffect(() => {
+    setActiveModel(activeModel ? activeModel.name : "");
+  }, [activeModel]);
+
   const renderCheckbox = (cell: Cell) => {
     const model: any = cell.row.original;
     return (
       <ToggleCheckButton
-        isChecked={model.name == activeModel}
+        isChecked={model.name == activeModelName}
         onChange={() => {
           setActiveModel(model.name);
         }}
@@ -41,7 +46,17 @@ const ModelsList: React.FC<ModelsListProps> = ({ models }) => {
   };
 
   const saveActiveModel = (activeModelName: string) => {
-    const activeModel = models.filter((model) => model.name == activeModelName);
+    const activeModel = models
+      .filter((model) => model.name == activeModelName)
+      .at(0);
+    if (activeModel) {
+      changeModelActivation(true, activeModelName);
+      models
+        .filter((model) => model.name != activeModelName)
+        .forEach((model) => {
+          changeModelActivation(false, model.name);
+        });
+    }
   };
 
   const modelsColumns: Column[] = [
@@ -71,7 +86,7 @@ const ModelsList: React.FC<ModelsListProps> = ({ models }) => {
         title="Set as active"
         type="button"
         hoverStyle="hover_white"
-        onClick={() => saveActiveModel(activeModel)}
+        onClick={() => saveActiveModel(activeModelName)}
       />
     </div>
   );

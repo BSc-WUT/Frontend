@@ -6,6 +6,7 @@ import useModels from "@/hooks/useModels";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
 import { useRouter } from "next/navigation";
+import { convertKeysToCamelCase } from "@/hooks/camelizeKeys";
 
 interface Layer {
   layerName: string;
@@ -42,14 +43,21 @@ const Model: React.FC<ModelType> = ({
   estmiatedTotalSizeMB,
   isActive,
 }) => {
-  const { deleteModel, loading, error } = useModels();
+  const { deleteModel, loading, error, changeModelActivation, modelsData } =
+    useModels();
+  const models: ModelType[] = convertKeysToCamelCase(modelsData);
   const router = useRouter();
   const layersComp = layers.map((layer) => {
     return <p>{layer.layerName}</p>;
   });
 
   const setModelAsActive = () => {
-    console.log(name);
+    models
+      .filter((model) => model.name != name)
+      .forEach((model) => {
+        changeModelActivation(false, model.name);
+      });
+    changeModelActivation(true, name);
   };
 
   const handleDelete = () => {

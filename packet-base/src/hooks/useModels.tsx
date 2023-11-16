@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import axios, { AxiosError, AxiosRequestConfig, isAxiosError } from "axios";
 import {
+  ACTIVATE_MODEL_ENDPOINT,
+  DEACTIVATE_MODEL_ENDPOINT,
   DELETE_MODEL_ENDPOINT,
   GET_MODELS_ENDPOINT,
   UPLOAD_MODEL_ENDPOINT,
@@ -74,6 +76,31 @@ const useModels = () => {
     setLoading(false);
   };
 
+  const changeModelActivation = async (
+    isActive: boolean,
+    modelName: string
+  ) => {
+    setLoading(true);
+    const endpoint = isActive
+      ? ACTIVATE_MODEL_ENDPOINT
+      : DEACTIVATE_MODEL_ENDPOINT;
+
+    try {
+      const config: AxiosRequestConfig = {
+        method: "GET",
+        url: `${endpoint}${modelName}`,
+      };
+      const response = await axios(config);
+      setResponse(response.data);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        setError(error.message);
+      }
+    }
+
+    setLoading(false);
+  };
+
   return {
     modelsData,
     loading,
@@ -82,6 +109,7 @@ const useModels = () => {
     deleteModel,
     uploadModel,
     response,
+    changeModelActivation,
   };
 };
 
