@@ -3,7 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { GetStaticPaths } from "next";
 import PageLayout from "@/components/PageLayout/PageLayout";
 import Model, { ModelType } from "../../../components/Model/Model";
-import { convertKeysToCamelCase } from "@/hooks/camelizeKeys";
+import { snakeToCamel } from "@/hooks/useKeys";
 import useModels from "@/hooks/useModels";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading/Loading";
@@ -11,7 +11,7 @@ import Error from "@/components/Error/Error";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { modelsData } = useModels();
-  const models: ModelType[] = convertKeysToCamelCase(modelsData);
+  const models: ModelType[] = snakeToCamel(modelsData);
   const paths = models.map((model) => ({ params: { name: model.name } }));
   return {
     paths,
@@ -35,7 +35,7 @@ export default function ModelPage() {
 
   useEffect(() => {
     if (!loading && !error && modelsData.length) {
-      setModels(convertKeysToCamelCase(modelsData));
+      setModels(snakeToCamel(modelsData));
     }
   }, [modelsData, loading, error]);
 

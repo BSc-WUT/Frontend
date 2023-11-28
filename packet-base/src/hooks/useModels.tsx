@@ -7,8 +7,10 @@ import {
   DEACTIVATE_MODEL_ENDPOINT,
   DELETE_MODEL_ENDPOINT,
   GET_MODELS_ENDPOINT,
+  PREDICT_ENDPOINT,
   UPLOAD_MODEL_ENDPOINT,
 } from "@/app/api/mlEndpoints";
+import { FlowType } from "@/components/Flow/FlowType";
 
 const useModels = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -101,6 +103,23 @@ const useModels = () => {
     setLoading(false);
   };
 
+  const predict = async (modelName: string, flow: FlowType) => {
+    setLoading(true);
+    try {
+      const config: AxiosRequestConfig = {
+        method: "POST",
+        url: `${PREDICT_ENDPOINT}${modelName}`,
+        data: flow,
+      };
+      const response = await axios(config);
+      setResponse(response.data.prediction);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        setError(error.message);
+      }
+    }
+  };
+
   return {
     modelsData,
     loading,
@@ -110,6 +129,7 @@ const useModels = () => {
     uploadModel,
     response,
     changeModelActivation,
+    predict,
   };
 };
 

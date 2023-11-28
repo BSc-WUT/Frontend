@@ -3,7 +3,7 @@ import { FlowType } from "@/components/Flow/FlowType";
 import PageLayout from "@/components/PageLayout/PageLayout";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Table from "@/components/Table/Table";
-import { convertKeysToCamelCase } from "@/hooks/camelizeKeys";
+import { snakeToCamel } from "@/hooks/useKeys";
 import useFlows from "@/hooks/useFlows";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -14,7 +14,7 @@ export default function Flows() {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [query, setQuery] = useState<string>("");
-  const flows: FlowType[] = convertKeysToCamelCase(flowsData);
+  const flows: FlowType[] = snakeToCamel(flowsData);
   const searchRegx =
     /(?:srcIP:((?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(?:\[\.\]|\.)){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])))?(?:\s?dstIP:((?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(?:\[\.\]|\.)){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])))?/;
   const matches = searchRegx.exec(query);

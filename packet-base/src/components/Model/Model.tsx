@@ -1,3 +1,4 @@
+"use client";
 import CloseIcon from "../../../public/close.svg";
 import Link from "next/link";
 import Button from "../Button/Button";
@@ -6,7 +7,8 @@ import useModels from "@/hooks/useModels";
 import Error from "../Error/Error";
 import Loading from "../Loading/Loading";
 import { useRouter } from "next/navigation";
-import { convertKeysToCamelCase } from "@/hooks/camelizeKeys";
+import { snakeToCamel } from "@/hooks/useKeys";
+import { useState } from "react";
 
 interface Layer {
   layerName: string;
@@ -45,8 +47,9 @@ const Model: React.FC<ModelType> = ({
 }) => {
   const { deleteModel, loading, error, changeModelActivation, modelsData } =
     useModels();
-  const models: ModelType[] = convertKeysToCamelCase(modelsData);
+  const models: ModelType[] = snakeToCamel(modelsData);
   const router = useRouter();
+  const [modelActive, setModelActive] = useState<boolean>(isActive);
   const layersComp = layers.map((layer) => {
     return <p>{layer.layerName}</p>;
   });
@@ -58,6 +61,7 @@ const Model: React.FC<ModelType> = ({
         changeModelActivation(false, model.name);
       });
     changeModelActivation(true, name);
+    setModelActive(true);
   };
 
   const handleDelete = () => {
@@ -68,13 +72,35 @@ const Model: React.FC<ModelType> = ({
   };
 
   return (
-    <div className="flex-col space-y-12">
-      <Link href="/models">
-        <div className="flex space-x-4 items-center w-fit rounded-lg border-2 border-white hover:bg-white transition-all hover:text-black px-4 py-2">
-          <CloseIcon viewBox="0 0 24 24" height={24} />
-          <button>Get back</button>
-        </div>
-      </Link>
+    <div className="flex-col space-y-12 space-x-4">
+      <div className="flex space-x-4">
+        <Link href="/models">
+          <div className="flex space-x-4 items-center w-fit rounded-lg border-2 border-white hover:bg-white transition-all hover:text-black px-4 py-2">
+            <CloseIcon viewBox="0 0 24 24" height={24} />
+            <button>Get back</button>
+          </div>
+        </Link>
+        {!modelActive && (
+          <Button
+            title="Set as active model"
+            type="button"
+            hoverStyle="hover_white"
+            onClick={() => setModelAsActive()}
+          />
+        )}
+        {modelActive && (
+          <div className="w-fit rounded-lg border-2 border-green-700 text-green-700 bg-green-100 hover:bg-white transition-all px-4 py-2">
+            Model is set as active
+          </div>
+        )}
+        <Button
+          title="Delete Model"
+          hoverStyle="hover_red"
+          onClick={() => handleDelete()}
+          type="button"
+        />
+      </div>
+
       <div className="flex-col w-fit space-y-14 ">
         <div className="flex-col space-y-6">
           <h1 className="text-2xl">Model Structure</h1>
@@ -116,27 +142,7 @@ const Model: React.FC<ModelType> = ({
           </div>
         </div>
       </div>
-      <div className="flex space-x-4">
-        {!isActive && (
-          <Button
-            title="Set as active model"
-            type="button"
-            hoverStyle="hover_white"
-            onClick={() => setModelAsActive()}
-          />
-        )}
-        {isActive && (
-          <div className="w-fit rounded-lg border-2 border-green-700 text-green-700 bg-green-100 hover:bg-white transition-all px-4 py-2">
-            Model is set as active
-          </div>
-        )}
-        <Button
-          title="Delete Model"
-          hoverStyle="hover_red"
-          onClick={() => handleDelete()}
-          type="button"
-        />
-      </div>
+
       {error && <Error message={error} />}
       {loading && <Loading />}
     </div>

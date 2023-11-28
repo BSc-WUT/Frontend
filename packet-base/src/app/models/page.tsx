@@ -2,13 +2,13 @@
 import React from "react";
 import ModelsLayout from "./components/ModelsLayout/ModelsLayout";
 import ModelsList from "./components/ModelsList/ModelsList";
-import { convertKeysToCamelCase } from "@/hooks/camelizeKeys";
+import { snakeToCamel } from "@/hooks/useKeys";
 import useModels from "@/hooks/useModels";
 import { ModelType } from "@/components/Model/Model";
 
 export default function Models() {
   const { modelsData } = useModels();
-  const models: ModelType[] = convertKeysToCamelCase(modelsData);
+  const models: ModelType[] = snakeToCamel(modelsData);
   return (
     <ModelsLayout>
       <div>
