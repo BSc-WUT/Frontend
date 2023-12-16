@@ -21,8 +21,8 @@ const ModelsList: React.FC<ModelsListProps> = ({ models }) => {
     setActiveModel(activeModel ? activeModel.name : "");
   }, [activeModel]);
 
-  const renderCheckbox = (cell: Cell) => {
-    const model: any = cell.row.original;
+  const renderCheckbox = (props: any) => {
+    const model: any = props.cell.row.original;
     return (
       <ToggleCheckButton
         isChecked={model.name == activeModelName}
@@ -33,8 +33,8 @@ const ModelsList: React.FC<ModelsListProps> = ({ models }) => {
     );
   };
 
-  const renderModelLink = (cell: Cell) => {
-    const model: any = cell.row.original;
+  const renderModelLink = (props: any) => {
+    const model: any = props.cell.row.original;
     return (
       <Link
         href={`/models/${model.name}`}

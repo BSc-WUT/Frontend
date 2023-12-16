@@ -1,5 +1,8 @@
 FROM node:20
 
+RUN apt-get update && apt-get install -y ca-certificates
+RUN apt-get update && apt-get upgrade -y ca-certificates
+
 WORKDIR /app
 
 COPY ./packet-base/package.json /app/package.json
@@ -11,4 +14,4 @@ COPY ./packet-base /app/
 
 EXPOSE 3000
 
-CMD ["yarn", "run", "build"]
+CMD ["sh", "-c", "yarn run build && yarn start"]

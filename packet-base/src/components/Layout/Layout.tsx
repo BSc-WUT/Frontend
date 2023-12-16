@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     if (!auth && !isAuth) {
       router.push("/login");
     }
-  }, [auth]);
+  }, [auth, getCookie, router]);
 
   return (
     <div className="flex h-full">

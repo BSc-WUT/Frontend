@@ -4,12 +4,12 @@ import React, { createContext, useEffect, useState } from "react";
 
 interface AuthContextType {
   auth: boolean | undefined;
-  setAuth: undefined | ((auth: boolean | null) => void);
+  setAuth: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }
 
 export const AuthContext = createContext<AuthContextType>({
   auth: undefined,
-  setAuth: undefined,
+  setAuth: () => {},
 });
 
 interface AuthProviderProps {
@@ -27,7 +27,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setAuth(true);
       }
     }
-  }, [isAuth]);
+  }, [isAuth, auth]);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>

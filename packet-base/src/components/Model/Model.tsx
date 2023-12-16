@@ -50,8 +50,8 @@ const Model: React.FC<ModelType> = ({
   const models: ModelType[] = snakeToCamel(modelsData);
   const router = useRouter();
   const [modelActive, setModelActive] = useState<boolean>(isActive);
-  const layersComp = layers.map((layer) => {
-    return <p>{layer.layerName}</p>;
+  const layersComp = layers.map((layer, key) => {
+    return <p key={key}>{layer.layerName}</p>;
   });
 
   const setModelAsActive = () => {

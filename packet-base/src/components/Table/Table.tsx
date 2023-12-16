@@ -17,12 +17,13 @@ const Table: React.FC<TableProps> = ({ data, columns }) => {
         {...getTableProps()}
       >
         <thead className="bg-gray-50">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
+          {headerGroups.map((headerGroup, key) => (
+            <tr {...headerGroup.getHeaderGroupProps()} key={key}>
+              {headerGroup.headers.map((column, key) => (
                 <th
                   {...column.getHeaderProps()}
                   className="py-3 px-6 text-left font-medium text-gray-500 uppercase"
+                  key={key}
                 >
                   {column.render("Header")}
                 </th>
@@ -31,15 +32,20 @@ const Table: React.FC<TableProps> = ({ data, columns }) => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()} className="bg-gray-900">
-          {rows.map((row) => {
+          {rows.map((row, key) => {
             prepareRow(row);
 
             return (
-              <tr {...row.getRowProps()} className="hover:bg-gray-700">
-                {row.cells.map((cell) => (
+              <tr
+                {...row.getRowProps()}
+                className="hover:bg-gray-700"
+                key={key}
+              >
+                {row.cells.map((cell, key) => (
                   <td
                     {...cell.getCellProps()}
                     className="py-4 px-6 whitespace-nowrap"
+                    key={key}
                   >
                     {cell.render("Cell")}
                   </td>

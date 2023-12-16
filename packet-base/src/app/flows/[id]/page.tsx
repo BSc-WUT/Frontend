@@ -6,19 +6,8 @@ import Loading from "@/components/Loading/Loading";
 import PageLayout from "@/components/PageLayout/PageLayout";
 import { snakeToCamel } from "@/hooks/useKeys";
 import useFlows from "@/hooks/useFlows";
-import { GetStaticPaths } from "next";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { flowsData } = useFlows();
-  const flows: FlowType[] = snakeToCamel(flowsData);
-  const paths = flows.map((flow) => ({ params: { id: flow.flowId } }));
-  return {
-    paths,
-    fallback: false,
-  };
-};
 
 export default function FlowPage() {
   const pathname = usePathname();

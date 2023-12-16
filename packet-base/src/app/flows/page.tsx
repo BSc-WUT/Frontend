@@ -7,7 +7,7 @@ import { snakeToCamel } from "@/hooks/useKeys";
 import useFlows from "@/hooks/useFlows";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Cell, Column } from "react-table";
+import { Cell, Column, CellProps } from "react-table";
 
 export default function Flows() {
   const { flowsData } = useFlows();
@@ -52,8 +52,8 @@ export default function Flows() {
     return conditions.every((condition) => condition(flow));
   });
 
-  const renderFlowLink = (cell: Cell) => {
-    const flow: any = cell.row.original;
+  const renderFlowLink = (props: any) => {
+    const flow = props.cell.row.original;
     return (
       <Link
         href={`/flows/${flow.flowId}`}
@@ -64,8 +64,8 @@ export default function Flows() {
     );
   };
 
-  const checkLabel = (cell: Cell) => {
-    const flow: any = cell.row.original;
+  const checkLabel = (props: any) => {
+    const flow: any = props.cell.row.original;
     return <>{flow.label ? flow.label : "Unknown"}</>;
   };
 

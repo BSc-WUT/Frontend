@@ -1,6 +1,5 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import type { GetStaticPaths } from "next";
 import PageLayout from "@/components/PageLayout/PageLayout";
 import Model, { ModelType } from "../../../components/Model/Model";
 import { snakeToCamel } from "@/hooks/useKeys";
@@ -8,16 +7,6 @@ import useModels from "@/hooks/useModels";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading/Loading";
 import Error from "@/components/Error/Error";
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { modelsData } = useModels();
-  const models: ModelType[] = snakeToCamel(modelsData);
-  const paths = models.map((model) => ({ params: { name: model.name } }));
-  return {
-    paths,
-    fallback: false,
-  };
-};
 
 export default function ModelPage() {
   const pathname = usePathname();
