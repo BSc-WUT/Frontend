@@ -34,7 +34,8 @@ export default function Flows() {
   } else {
     conditions.push(
       (flow: FlowType) =>
-        flow.flowId == query ||
+        flow.flowId.startsWith(query) ||
+        flow.label?.startsWith(query) ||
         flow.srcIp.startsWith(query) ||
         flow.dstIp.startsWith(query)
     );
@@ -63,6 +64,11 @@ export default function Flows() {
     );
   };
 
+  const checkLabel = (cell: Cell) => {
+    const flow: any = cell.row.original;
+    return <>{flow.label ? flow.label : "Unknown"}</>;
+  };
+
   const flowsColumns: Column[] = [
     {
       Header: "Flow ID",
@@ -88,6 +94,11 @@ export default function Flows() {
     {
       Header: "Protocol",
       accessor: "protocol",
+    },
+    {
+      Header: "Label",
+      accessor: "label",
+      Cell: checkLabel,
     },
     {
       Header: "Timestamp",
