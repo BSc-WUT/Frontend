@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Update Docker Image
 
 on:
   push:
@@ -6,12 +6,12 @@ on:
       - master
 
 jobs:
-  build:
+  update-docker-image:
     runs-on: ubuntu-latest
 
     steps:
       - name: Build Docker image
-        run: docker build packetbase/frontend .
+        run: docker image build .
 
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
