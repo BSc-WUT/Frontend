@@ -9,6 +9,7 @@ COPY ./packet-base/package.json /app/package.json
 
 RUN yarn config set "strict-ssl" false -g
 RUN yarn install
+RUN yarn add sharp
 
 COPY ./packet-base /app/
 

@@ -15,7 +15,7 @@ export default function FlowPage() {
   const { flowsData, loading, error, getFlows } = useFlows();
   const [flows, setFlows] = useState<FlowType[]>([]);
   const currentFlowId = pathname.split("/").at(-1) || "";
-  const currentFlow = flows.find((flow) => flow.flowId === currentFlowId);
+  const currentFlow = flows.find((flow) => flow.id === currentFlowId);
 
   useEffect(() => {
     if (!flowsData.length && !loading && !error) {

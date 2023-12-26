@@ -28,7 +28,7 @@ const Flow: React.FC<FlowType> = (props) => {
   const flowData: FlowRowType[] = [
     {
       property: "Flow ID",
-      value: props.flowId,
+      value: props.id,
       description: " ",
     },
     {

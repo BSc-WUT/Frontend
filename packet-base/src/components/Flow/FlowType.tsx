@@ -1,6 +1,6 @@
 export interface FlowType {
   label: string;
-  flowId: string;
+  id: string;
   srcIp: string;
   dstIp: string;
   srcPort: number;

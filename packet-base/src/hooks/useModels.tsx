@@ -9,7 +9,7 @@ import {
   GET_MODELS_ENDPOINT,
   PREDICT_ENDPOINT,
   UPLOAD_MODEL_ENDPOINT,
-} from "@/app/api/mlEndpoints";
+} from "@/app/api/endpoints";
 import { FlowType } from "@/components/Flow/FlowType";
 
 const useModels = () => {
@@ -65,7 +65,7 @@ const useModels = () => {
       uploadData.append("model_file", file);
       const config: AxiosRequestConfig = {
         method: "POST",
-        url: `${UPLOAD_MODEL_ENDPOINT}${file.name.split(".")[0]}`,
+        url: UPLOAD_MODEL_ENDPOINT,
         data: uploadData,
       };
       const response = await axios(config);

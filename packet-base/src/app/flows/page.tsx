@@ -15,6 +15,7 @@ export default function Flows() {
   const [endDate, setEndDate] = useState<string>("");
   const [query, setQuery] = useState<string>("");
   const flows: FlowType[] = snakeToCamel(flowsData);
+  console.log(flows);
   const searchRegx =
     /(?:srcIP:((?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(?:\[\.\]|\.)){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])))?(?:\s?dstIP:((?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(?:\[\.\]|\.)){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])))?/;
   const matches = searchRegx.exec(query);
@@ -34,7 +35,7 @@ export default function Flows() {
   } else {
     conditions.push(
       (flow: FlowType) =>
-        flow.flowId.startsWith(query) ||
+        flow.id.startsWith(query) ||
         flow.label?.startsWith(query) ||
         flow.srcIp.startsWith(query) ||
         flow.dstIp.startsWith(query)
@@ -56,10 +57,10 @@ export default function Flows() {
     const flow = props.cell.row.original;
     return (
       <Link
-        href={`/flows/${flow.flowId}`}
+        href={`/flows/${flow.id}`}
         className="w-full underline hover:text-blue-700"
       >
-        {flow.flowId}
+        {flow.id}
       </Link>
     );
   };
@@ -72,7 +73,7 @@ export default function Flows() {
   const flowsColumns: Column[] = [
     {
       Header: "Flow ID",
-      accessor: "flowId",
+      accessor: "id",
       Cell: renderFlowLink,
     },
     {
